@@ -1,0 +1,21 @@
+<!-- ユーザーの詳細 -->
+<h3>User info</h3>
+<div>
+  <table class="table">
+    <%= image_tag user.get_profile_image(100,100) %>
+    <thead>
+      <tr>
+      <th scope="row">name</th>
+       <th scope="row"><%=user.name %></th>
+    </tr>
+    <tr>
+      <th scope="row">introduction</th>
+       <th scope="row"><%= user.introduction %></th>
+    </tr>
+    </thead>
+</table>
+
+<%= link_to edit_user_path(user.id), class: "btn btn btn-secondary text-white" do %>
+ <i class="fas fa-pen"></i>
+<% end %>
+</div>

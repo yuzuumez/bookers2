@@ -1,0 +1,52 @@
+<div class="container">
+<div class="row">
+  <div class="col">
+ 
+<!-- ユーザーの詳細 -->
+<%= render 'users/list', user: @user %>
+
+<!-- 新規投稿フォーム -->
+ <br><h3>New book</h3>
+
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>errors occurrd.
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+  <%= form_with model: Book.new do |f| %>
+   
+    <p>Title</p>
+      <%= f.text_field :title %>
+    <p>Opinion</p>
+      <%= f.text_area :body %><br>
+    <%= f.submit 'Create Book',class: "btn btn-secondary" %>
+    <br>
+  <% end %>
+</div>
+<div class="col">
+<!-- 本の詳細画面 -->
+
+
+<br><h3>Book detail</h3>
+<table>
+  <thead>
+    <tr>
+  <td><%= image_tag @book.user.get_profile_image(100,100) %></td>
+  <td><%= link_to user_path(@book.user_id) do %><%= @book.user.name %><% end %></td>
+  <td><%= link_to book_path(@book.id) do %><%= @book.title %><% end %></td>
+  <td><%= @book.body %></td>
+  
+  <% if @book.user == current_user %>
+ <td><%= button_to "edit", edit_book_path(@book.id), method: :get, class: "btn btn-secondary"%></td>
+ <td><%= button_to "destroy", book_path(@book), method: :delete, class: "btn btn-secondary" %></td>
+ <% end %>
+</tr>
+</thead>
+</table>
+</div>   
+  </div>
+</div>

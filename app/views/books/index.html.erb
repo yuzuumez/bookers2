@@ -1,0 +1,53 @@
+<div class="container">
+<div class="row">
+  <div class="col">
+  
+ <!-- ユーザーの詳細 -->
+ <%= render 'users/list', user: @user %>
+  
+<!-- 新規投稿フォーム -->
+ <br><h3>New book</h3>
+
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>errors occurrd.
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+  <%= form_with model: @book do |f| %>
+   
+    <p>Title</p>
+      <%= f.text_field :title %>
+    <p>Opinion</p>
+      <%= f.text_area :body %><br>
+    <%= f.submit 'Create Book',class: "btn btn-secondary" %>
+    <br>
+  <% end %>
+</div>
+<div class="col">
+  
+<!-- books一覧画面-->
+<br><br>
+<h3>Books</h3>
+
+<table class="table table-striped"> 
+<thead>
+  <tr>
+    <th scope="row"></th>
+    <th scope="row">Title</th>
+    <th scope="row">Opinion</th>
+  </tr>
+</thead>
+<tbody>
+  <% @books.each do |book| %>
+  <tr>
+    <td><%= image_tag book.user.get_profile_image(100,100) %></td>
+  <td><%= link_to book_path(book.id) do %><%= book.title %><% end %></td>
+  <td><%= book.body %></td></tr>
+  <% end %>
+</tbody>
+</table>
+</div></div></div>
